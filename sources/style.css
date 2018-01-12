@@ -1,0 +1,194 @@
+body {
+  background: url("../images/background.jpg") no-repeat fixed;
+  background-size:cover;
+}
+
+/* main menu style */
+.titre > h3 {
+  color: white;
+}
+.mainmenu {
+  background-color: black;
+  background-color: rgba(0, 0, 0,0.5);
+  padding: 10px;
+  color: white;
+}
+.bateauxjoueur, .controles, .aideTitresJoueurs {
+  display: none;
+}
+.bateauxjoueur > img, .bateauxIA > img {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  background-color: black;
+  background-color: rgba(0, 0, 0,0.6);
+}
+.bateauxjoueur > img.selectable:hover {
+  border: solid 2px rgb(86, 180, 239);
+  -moz-box-shadow: 1px 1px 5px #999;
+  -webkit-box-shadow: 1px 1px 5px #999;
+  box-shadow: 1px 1px 5px #999;
+  -webkit-filter: brightness(150%);
+}
+.bateauxIA {
+  display: none;
+}
+.selectable {
+  border: 2px solid transparent;
+  border-image: linear-gradient(to right, rgb(158, 255, 0) 0%, rgb(255, 153, 0) 100%);
+  border-image-slice: 1;
+}
+.selectedShip {
+  z-index: 0;
+}
+.accepterPositions {
+  opacity : 0.4;
+}
+.bateautailletext {
+  display: none;
+  color: white;
+  position : relative;
+  font: bold 24px/45px Helvetica, Sans-Serif;
+  letter-spacing: -1px;
+  background: rgb(0, 0, 0); /* fallback color */
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+}
+/* FIN main menu style */
+
+/* Game Grid style */
+#contentTabBateaux, #contentTabAttaques {
+  z-index: 1;
+  margin : 20px;
+  padding: 5px;
+  position:relative;
+  overflow: hidden;
+  border: 1px solid #ec8000;
+  line-height: 0;
+  text-align: center;
+  background: black;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, rgba(15, 4, 0,0.7), rgba(0, 0, 0,0.9));  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, rgba(15, 4, 0,0.7), rgba(0, 0, 0,0.9)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.possiblePoses {
+  border: 1px solid rgba(255,255,0, 0.5);
+  background-color: rgba(255,255,0, 0.5);
+}
+.chosenPoses {
+  border: 1px solid rgba(173,255,47, 1);
+  background-color: rgba(0,128,0, 1);
+}
+.missed {
+  border: 1px solid rgba(0,139,139, 0.8);
+  background-color: rgba(0,139,139, 0.8);
+}
+.touched {
+  border: 1px solid rgba(210,105,30, 0.8);
+  background-color: rgba(210,105,30, 0.8);
+}
+.destroyed {
+  border: 1px solid rgba(105,105,105, 0.8);
+  background-color: rgba(105,105,105, 0.8);
+}
+.IATargets {
+  background: -webkit-linear-gradient(to bottom, rgba(15, 255, 255,0.7), rgba(255, 255, 255,0.9));
+
+}
+.missilePos {
+  background: -webkit-radial-gradient(circle, red, yellow, black); /* For Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(circle, red, yellow, black); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(circle, red, yellow, black); /* For Fx 3.6 to 15 */
+  background: radial-gradient(circle, red, yellow, black); /* Standard syntax (must be last) */
+  opacity: 0.9;
+}
+.txtligne:hover, .txtcol:hover {
+  border: 1px solid black;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  font-size: 1.7em;
+}
+.carre {
+  z-index: 2;
+  display: inline-block;
+  /*border: 1px solid rgba(255, 216, 0, 0.9);*/
+  border: 1px solid rgb(86, 180, 239);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
+  margin: 0;
+  padding:0;
+  overflow: hidden;
+}
+.carre > h5:hover {
+  margin-top: 5px;
+}
+.carre > h5 {
+  overflow: hidden;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 1.3em;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+}
+/* FIN Game Grid style */
+
+/* button style source : https://codemyui.com/gradient-ghost-button-hover-effect/ */
+.myGameButton {
+  border: 6px solid transparent;
+  border-image: linear-gradient(to right, rgb(158, 255, 0) 0%, rgb(255, 153, 0) 100%);
+  border-image-slice: 1;
+  background: black;
+  color: #FFF;
+  font-size: 1em;
+  padding: 10px 40px;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.myGameButton:hover {
+  background-color: #00334c;
+  color: #fff6c5;
+}
+/* FIN button style */
+
+@media screen and (max-width: 560px) {
+  #contentTabBateaux, #contentTabAttaques {
+    display:block;
+    float:none;
+    width: 90%;
+  }
+}
+
+/* Notifination confirmation */
+.notifyjs-foo-base {
+  opacity: 0.85;
+  width: 250px;
+  background: #F5F5F5;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.notifyjs-foo-base .title {
+  width: 100px;
+  float: left;
+  margin: 10px 0 0 10px;
+  text-align: right;
+}
+
+.notifyjs-foo-base .buttons {
+  width: 70px;
+  float: right;
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+}
+
+.notifyjs-foo-base button {
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+  width: 60px;
+}

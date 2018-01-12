@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      window.jQuery || document.write('<script src="sources/jquery-3.2.1.js"><\/script>');
+    }
+  </script>
+  <link rel="stylesheet" href="sources/style.css">
+  <link href="sources/radar.css" rel="stylesheet" type="text/css">
+</header>
+<body>
+  <div class="container">
+    <div class="row text-center mainmenu">
+      <div class="col-xs-12 text-center MenuStartGame">
+        <button type="button" class="btn myGameButton startGame" onclick="startGame()">Start Game</button>
+        <button type="button" class="btn myGameButton aide" onclick="afficherAide()">Aide</button>
+      </div>
+      <div class="col-xs-12 col-md-12 text-center bateauxjoueur">
+        <h3 class="aideTitresJoueurs">Vos Bateaux</h3>
+        <h3 class="aidePlacerBateaux">Selectionnez vos bateaux et placez-les dans le champs Bateaux</h3>
+        <img src="images/battleship-1.png" class="bateaujoueur selectable" data-taille="5" id="porte-avions" alt="porteavions"  width="200">
+        <img src="images/battleship-2.png" class="bateaujoueur selectable" data-taille="4" id="cuirasse" alt="cuirasse"  width="200">
+        <img src="images/battleship-3.png" class="bateaujoueur selectable" data-taille="3" id="destroyer" alt="destroyer" width="200">
+        <img src="images/battleship-4.png" class="bateaujoueur selectable" data-taille="3" id="torpilleur" alt="torpilleur" width="200">
+        <img src="images/battleship-5.png" class="bateaujoueur selectable" data-taille="2" id="sous-marin" alt="sousmarin" width="200">
+        <canvas class="bateautailletext" id="porte-avions"></canvas>
+        <canvas class="bateautailletext" id="cuirasse"></canvas>
+        <canvas class="bateautailletext" id="destroyer"></canvas>
+        <canvas class="bateautailletext" id="torpilleur"></canvas>
+        <canvas class="bateautailletext" id="sous-marin"></canvas>
+        <h4 class="aidePlacerBateaux"><i>click droit pour changer l'orientation du Bateau selectionné</i></h4>
+      </div>
+      <div class="col-xs-12 col-md-12 text-center bateauxIA">
+        <h3 class="aideTitresJoueurs">Bateaux IA PaperBoi</h3>
+        <img src="images/battleship-1.png" class="bateauIA" data-taille="5" id="porte-avions" alt="porteavions"  width="200">
+        <img src="images/battleship-2.png" class="bateauIA" data-taille="4" id="cuirasse" alt="cuirasse"  width="200">
+        <img src="images/battleship-3.png" class="bateauIA" data-taille="3" id="destroyer" alt="destroyer" width="200">
+        <img src="images/battleship-4.png" class="bateauIA" data-taille="3" id="torpilleur" alt="torpilleur" width="200">
+        <img src="images/battleship-5.png" class="bateauIA" data-taille="2" id="sous-marin" alt="sousmarin" width="200">
+        <canvas class="bateautailletext" id="porte-avions"></canvas>
+        <canvas class="bateautailletext" id="cuirasse"></canvas>
+        <canvas class="bateautailletext" id="destroyer"></canvas>
+        <canvas class="bateautailletext" id="torpilleur"></canvas>
+        <canvas class="bateautailletext" id="sous-marin"></canvas>
+      </div>
+      <div class="col-xs-12 col-md-12 text-center controles">
+       <button type="button" class="btn myGameButton placerAuHasard" onclick="placerBateauxJoueur()">Auto place</button>
+       <button type="button" class="btn myGameButton resetPositions" onclick="resetTableBateaux()">Reset</button>
+       <button type="button" class="btn myGameButton accepterPositions" onclick="accepterPositions()">Accepter</button>
+     </div>
+     <div class="col-xs-12 col-md-12 text-center messages">
+     </div>
+   </div>
+
+   <div class="row text-center">
+    <div class="col-xs-5 text-center" id="contentTabAttaques">
+      <div class="col-12 text-center titre"><h3>Vos Attaques</h3></div>
+      <div class="radar">
+        <div class="pointer"></div>
+        <div class="shadow"></div>
+      </div>
+    </div>
+
+    <div class="col-xs-5 text-center" id="contentTabBateaux">
+      <div class="col-12 text-center titre"><h3>Vos Bateaux</h3></div>
+      <div class="radar">
+        <div class="pointer"></div>
+        <div class="shadow"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="partie-a.js"></script>
+<script src="partie-b.js"></script>
+<script src="sources/notify.min.js"></script>
+<script type="text/javascript">
+  function startGame() {
+    window.battleShipCont.commencerPartie();
+    $('.startGame').css('display','none');
+    $('#contentTabAttaques').css('opacity', 0.4);
+    $('.bateauxjoueur').css('display','block');
+    $('.controles').css('display','block');
+    $('.accepterPositions').css('opacity', 0.4);
+    $('.accepterPositions').prop('onclick', null);
+    $('#contentTabBateaux').first().notify("Placer vos bateaux", {className: "success", position:"top right" });
+  }
+
+  function placerBateauxJoueur() {
+    window.battleShipCont.autoPlacerBateaux();
+    $('.accepterPositions').css('opacity', 1);
+    $('.accepterPositions').attr('onclick', 'accepterPositions()');
+  }
+
+  function resetTableBateaux() {
+    window.battleShipCont.resetPositions();
+    $('.accepterPositions').css('opacity', 0.4);
+    $('.accepterPositions').prop('onclick', null);
+    $('#contentTabBateaux').first().notify("Boutton reset est parfois imprevisible, please reload on cas de probleme", {className: "success", position:"bottom right" });
+  }
+
+  function accepterPositions() {
+    window.battleShipCont.accepterPoses();
+    $('.aidePlacerBateaux').css('display', 'none');
+    $('.titresBateaux').css('display', 'none');
+    $('#contentTabAttaques').css('opacity', 1);
+    $('.bateauxjoueur').css('display', 'block');
+    $('.bateauxjoueur .bateaujoueur').css('opacity', 1);
+    $('.bateauxIA').css('display', 'block');
+    $('.accepterPositions').css('display', 'none');
+    $('.placerAuHasard').css('display', 'none');
+    $('.resetPositions').css('display', 'none');
+    $('.aideTitresJoueurs').css('display', 'block');
+    $('.bateautailletext').css('display:', 'inline-block');
+    $('.startGame').css('display','inline-block').text('Recommencer').attr('onclick', 'confirmerResetPartie()');
+  }
+
+  function afficherAide() {
+      $.notify.addStyle('foo', {
+        html:
+        "<div>" +
+        "<div class='clearfix'>" +
+        "<div class='title' data-notify-html='title'/>" +
+        "<h2>Comment jouer</h2>" +
+        "<h4>1. PLacez vos bateaux dans la grille Bateaux</h4>" +
+        "<h4>2. Acceptez les positions choisies</h4>" +
+        "<h4>3. Attaquez en cliquant sur la grille Vos Attaques</h4>" +
+        "<div class='buttons'>" +
+        "<button class='ok' data-notify-text='button'></button>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
+      });
+
+      //listen for click events from this style
+      $(document).on('click', '.notifyjs-foo-base .ok', function() {
+        //OK
+        $(this).trigger('notify-hide');
+      });
+
+      $.notify({
+        button: 'Ok'
+      }, {style: 'foo',autoHide: false, clickToHide: false });
+  }
+
+  function confirmerResetPartie() {
+      $.notify.addStyle('foo', {
+        html:
+        "<div>" +
+        "<div class='clearfix'>" +
+        "<div class='title' data-notify-html='title'/>" +
+        "<div class='buttons'>" +
+        "<button class='no'>Cancel</button>" +
+        "<button class='yes' data-notify-text='button'></button>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
+      });
+
+      //listen for click events from this style
+      $(document).on('click', '.notifyjs-foo-base .no', function() {
+        //No
+        $(this).trigger('notify-hide');
+      });
+      $(document).on('click', '.notifyjs-foo-base .yes', function() {
+        //Yes
+        window.location.reload();
+        $(this).trigger('notify-hide');
+      });
+
+      var h5 = $("<h5/>").append("Etes vous sur de vouloir recommencer la partie ?")
+
+      $.notify({
+        title: 'Etes vous sur de vouloir recommencer la partie ?',
+        button: 'Confirm'
+      }, {style: 'foo',autoHide: false, clickToHide: false });
+  }
+
+    $(document).ready(function() {
+      $('#contentTabBateaux').creerTableau();
+      $('#contentTabAttaques').creerTableau();
+      // Enlever le contextmenu quand un clic droit est detecté
+      $(this).bind("contextmenu", function(e) {
+        e.preventDefault();
+      });
+      $.notify("Bienvenue sur BattleShip, je suis PaperBoi, Prêt pour une partie ?",{className: "success", globalPosition: 'bottom right'});
+      setTimeout(function() {
+        $.notify("Clique sur [Start Game] pour commencer une partie", {className: "success", globalPosition:"bottom right" });
+      }, 2000);
+    });
+
+    $( window ).resize(function() {
+      /* timeout necessaire seulement pour que le redimentionnement fonctionne avec internet explorer */
+      setTimeout(function() {
+        $('#contentTabAttaques').redimentionnerFenetre();
+      }, 200);
+    });
+  </script>
+</body>
+</html>
